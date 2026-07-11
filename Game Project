@@ -1,0 +1,212 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <math.h>
+void result(int player1[], int player2[], int* count1, int* count2, int* goal);
+#define SIZE 50
+void main()
+{
+	srand(time(NULL));
+	char check[10], check1[10], check2[10], check3[10], check4[10], check5[10], check6[10], check7[10], check8[10], check9[10], check10[10], check11[10];
+	int player1[SIZE], player2[SIZE], p1 = 0, p2 = 0, hos = 0, finish_count1 = 0, finish_count2 = 0, count1 = 2, count2 = 2, goal;
+	int player1_sum = 0, player2_sum = 0;
+	for (int i = 0; i < SIZE; i++) {
+		player1[i] = rand() % 11;
+		player2[i] = rand() % 11;
+	}
+	goal = rand() % 11 + 20;
+
+	printf("Start 'Black Jack' Game?(Push Enter to start!)");
+	gets_s(check);
+	if (check[0] == '\0')
+	{
+		printf("Now let's start explaining how to play 'Black Jack' Game");
+		gets_s(check10);
+		printf("First, the target score that the players will aim for is revealed\nThen, each of the two players is take two cards(0~10).\nWhen it's their turn, each player decides whether to draw one mire card or to stop and complete their Deck Selection.\nThe player whose total card sum is closer to the target score wins the game.");
+		gets_s(check11);
+		printf("-----------------------------------------------------------------------------\n");
+		printf("Select player 1 and player 2");
+		gets_s(check1);
+		if (check1[0] == '\0')
+		{
+			printf("First, let's draw the target score.\n");
+			printf("Target Score:%d\n", goal);
+			gets_s(check3);
+			printf("Both Player 1 and Player 2 receive two cards each.");
+			gets_s(check2);
+			printf("Player 1, Please look at the screen and Player 2, Please look away..\n"); //player2는 쳐다보지 않기
+			gets_s(check5);
+			printf("number %d", player1[0]);
+			gets_s(check4);
+			printf("number %d", player1[1]);
+			for (int i = 0; i < 30; i++)
+				printf("\n");
+			player1_sum += player1[0] + player1[1];
+
+			printf("Player 2, Please look at the screen and Player 1, Please look away..\n");  //player1은 쳐다보지 않기
+			gets_s(check6);
+			printf("number %d", player2[0]);
+			gets_s(check7);
+			printf("number %d", player2[1]);
+			for (int i = 0; i < 30; i++)
+				printf("\n");
+			player2_sum += player2[0] + player2[1];
+			//두 카드씩 받기
+
+			p1 = rand() % 2 + 1;
+			if (p1 == 1)
+				p2 = 2;
+			else if (p1 == 2)
+				p2 = 1;
+			//순서 정하기
+
+			printf("Game Start!!\n");  //게임 시작부터 자리 차례에만 화면을 볼 수 있음
+			gets_s(check8);
+			if (p1 == 1 && p2 == 2)
+				printf("Player1 Choose First, Player2 Choose Second\n");
+			else if (p1 == 2 && p2 == 1)
+				printf("Player2 Choose First, Player1 Choose Second\n");
+
+			while (1)//게임 시작
+			{
+
+				if (p1 == 1 && p2 == 2) // player 1 선공
+				{
+
+					printf("Player1, Hit(1) or Stand(0)?\n");
+					scanf_s("%d", &hos);
+					getchar();
+					if (hos == 1)// Hit 선택
+					{
+						printf("number %d\n", player1[count1]);
+						player1_sum += player1[count1];
+						printf("Current player1 Deck Sum:%d\n", player1_sum);
+						for (int i = 0; i < 30; i++)
+							printf("\n");
+						count1++;
+					}
+					else if (hos == 0) //stand 선택
+					{
+						printf("Player1's Deck Selection is Complete!\n");
+						printf("Current player1 Deck Sum:%d\n", player1_sum);
+						for (int i = 0; i < 30; i++)
+							printf("\n");
+						finish_count1++;
+
+					}
+
+					if (finish_count2 == 1 && finish_count1 == 0)// player2만 덱 선택 종료
+					{
+						p1 = 1;
+						p2 = 2;
+					}
+					else if (finish_count1 == 1 && finish_count2 == 0) // player1만 덱 선택 종료
+					{
+						p1 = 2;
+						p2 = 1;
+					}
+					else if (finish_count1 == 0 && finish_count2 == 0) { //둘다 덱 선택 하는 중
+						p1 = 2;
+						p2 = 1;
+					}
+				}
+				else if (p1 == 2 && p2 == 1)  // player 2 선공
+				{
+
+					printf("Player2, Hit(1) or Stand?(0)\n");
+					scanf_s("%d", &hos);
+					getchar();
+					if (hos == 1)// Hit 선택
+					{
+						printf("number %d\n", player2[count2]);
+						player2_sum += player2[count2];
+						printf("Current player2 Deck Sum:%d\n", player2_sum);
+						for (int i = 0; i < 30; i++)
+							printf("\n");
+						count2++;
+					}
+					else if (hos == 0) //stand 선택
+					{
+						printf("Player2's Deck Selection is Complete!\n");
+						printf("Current player2 Deck Sum:%d\n", player2_sum);
+						for (int i = 0; i < 30; i++)
+							printf("\n");
+						finish_count2++;
+					}
+
+					if (finish_count2 == 1 && finish_count1 == 0)// player2만 덱 선택 종료
+					{
+						p1 = 1;
+						p2 = 2;
+					}
+					else if (finish_count2 == 0 && finish_count1 == 1) //player1만 덱 선택 종료
+					{
+						p1 = 2;
+						p2 = 1;
+					}
+					else if (finish_count1 == 0 && finish_count2 == 0) //둘다 덱 선택 하는중
+					{
+						p1 = 1;
+						p2 = 2;
+					}
+				}
+
+
+				if (finish_count1 + finish_count2 == 2)
+					break;
+
+			}//while문 닫히는 중괄호
+			if (finish_count1 + finish_count2 == 2)//결과 나오는 루프
+			{
+				printf("Both Players's Deck Selectoins are done\nwait a minute..");
+				gets_s(check9);
+			}
+
+
+		}
+		else printf("Game Finish");
+	}
+	else
+		printf("Game Finish");
+
+
+	result(player1, player2, &count1, &count2, &goal);
+
+}
+void result(int player1[], int player2[], int* count1, int* count2, int* goal)
+{
+	int player1_sum = 0, player2_sum = 0, Player1_sum = 0, Player2_sum = 0;
+
+	for (int i = 0; i < *count1; i++) {
+
+		player1_sum += player1[i];
+	}
+
+	for (int i = 0; i < *count2; i++)
+		player2_sum += player2[i];
+
+	Player1_sum = player1_sum;
+	Player2_sum = player2_sum;
+
+	Player1_sum -= *goal; //2
+	Player2_sum -= *goal;  //3
+	printf("---------------------------\n");
+	printf("Target socre:%d\n", *goal);
+	if (abs(Player1_sum) < abs(Player2_sum))
+	{
+		printf("Player1 Sum:%d(diff:%d), Player2 Sum:%d(diff:%d)\n", player1_sum, abs(Player1_sum), player2_sum, abs(Player2_sum));
+		printf("Player1 Win!!");
+	}
+	else if (abs(Player1_sum) > abs(Player2_sum))
+	{
+		printf("Player1 Sum:%d(diff:%d), Player2 Sum:%d(diff:%d)\n", player1_sum, abs(Player1_sum), player2_sum, abs(Player2_sum));
+		printf("Player2 Win!!");
+	}
+	else
+	{
+
+		printf("Player1 Sum:%d(diff:%d), Player2 Sum:%d(diff:%d)\n", player1_sum, abs(Player1_sum), player2_sum, abs(Player2_sum));
+		printf("Draw!!");
+	}
+
+}
