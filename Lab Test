@@ -72,3 +72,58 @@ void main()
 	printf("hong gil dong Count:%d", count);
 
 }
+
+//온전히 cat 이라는 단어만 count
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char sen[200] = "The CAT sat on the caterpillar, and a big cat ate a catfish.";
+	char target[20] = "cat";
+	for (int i = 0; i < strlen(sen); i++)
+	{
+		if (sen[i] >= 65 && sen[i] <= 90)
+			sen[i] += 32;
+	}
+	//sen은 전부 소문자
+	int count = 0, cursor = 0;
+	int target_index = 0;
+	while (sen[cursor] != NULL)
+	{	
+		if (sen[cursor] == target[target_index]) //첫 글자가 같다면
+		{
+			target_index++;
+			if (strlen(target) == target_index)
+			{
+				if (sen[cursor - 3] == ' ' && sen[cursor + 1] == ' ')
+				{
+					count++;
+					target_index = 0; 
+				}
+				else if (sen[cursor - 3] == ' ' && sen[cursor + 1] == '\0')
+				{
+					count++;
+					target_index = 0;
+				}
+				else
+				{
+					cursor += 1;
+					target_index = 0;
+					continue;
+				}
+			}
+		}
+		
+		else
+		{
+			if (target_index > 0)
+			{
+				cursor -= target_index;
+				target_index = 0;
+			}
+		}
+		cursor++;
+	}
+	printf("%d", count);
+
+}
