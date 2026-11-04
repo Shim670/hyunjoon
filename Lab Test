@@ -127,3 +127,61 @@ void main()
 	printf("%d", count);
 
 }
+
+//wildcard 를 이용해 문장 찾기
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char sen[200] = "hong gil dong hong je dong hong hong hong ta ku hong se dong";
+	char target1[20] = "hong";
+	char target2[20] = "dong"; 
+	int count = 0, cursor1 = 0, cursor2=0, target1_index = 0, target2_index = 0;
+	while (sen[cursor1] != NULL)
+	{
+		if (sen[cursor1] == target1[target1_index])
+		{
+			target1_index++;
+			if (strlen(target1) == target1_index)
+			{
+				cursor2 = cursor1 + 1;
+				while (sen[cursor2] != NULL)
+				{
+					if (sen[cursor2] == target2[target2_index])
+					{
+						target2_index++;
+						if (strlen(target2) == target2_index)
+						{
+							count++;
+							target2_index = 0;
+							target1_index = 0; 
+							//cursor1 = cursor2;   //이 위치에 따라 count가 달라짐 이렇게 오면 count=1
+							cursor2 = 0;   //이렇게 오면 hong hong dong 안에서 count=2 (이게 정석)
+							break;
+						}
+					}
+					else
+					{
+						if (target2_index > 0)
+						{
+							cursor2 -= target2_index;
+							target2_index = 0;
+						}
+					}
+					cursor2++;
+				}
+
+			}
+		}
+		else
+		{
+			if (target1_index > 0)
+			{
+				cursor1 -= target1_index;
+				target1_index = 0;
+			}
+		}
+		cursor1++;
+	}
+	printf("Count: %d", count);
+}
