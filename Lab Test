@@ -145,6 +145,9 @@ void main()
 			if (strlen(target1) == target1_index)
 			{
 				cursor2 = cursor1 + 1;
+                target2_index=0;
+                target1_index=0;
+
 				while (sen[cursor2] != NULL)
 				{
 					if (sen[cursor2] == target2[target2_index])
@@ -153,8 +156,6 @@ void main()
 						if (strlen(target2) == target2_index)
 						{
 							count++;
-							target2_index = 0;
-							target1_index = 0; 
 							//cursor1 = cursor2;   //이 위치에 따라 count가 달라짐 이렇게 오면 count=1
 							cursor2 = 0;   //이렇게 오면 hong hong dong 안에서 count=2 (이게 정석)
 							break;
@@ -182,6 +183,70 @@ void main()
 			}
 		}
 		cursor1++;
+
+//mon*ey 찾는 코드
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char sen[100] = "hello mister monkey";
+	char target1[10] = "mon";
+	char target2[10] = "ey";
+	int count = 0;
+	int cursor1 = 0, cursor2 = 0;
+	int target1_index = 0, target2_index=0;
+	while (sen[cursor1] != NULL)
+	{
+		if (sen[cursor1] == target1[target1_index])
+		{
+			target1_index++;
+			if (strlen(target1) == target1_index)
+			{
+				cursor2 = cursor1+1;
+				target1_index = 0;
+				target2_index = 0;
+
+				while (sen[cursor2] != NULL)
+				{
+					if (sen[cursor2] == target2[target2_index])
+					{
+						target2_index++;
+						if (strlen(target2) == target2_index)
+						{
+							count++;
+							cursor2 = 0;
+							break;
+						}
+					}
+					else
+					{
+						if (target2_index > 0)
+						{
+							cursor2 -= target2_index;
+							target2_index = 0;
+						}
+					}
+					cursor2++;
+				}
+
+			}
+		}
+		else
+		{
+			if (target1_index > 0)
+			{
+				cursor1 -= target1_index;
+				target1_index = 0; 
+			}
+		}
+		cursor1++;
+
+	}
+	if (count > 0)
+		printf("match found");
+	else
+		printf("match not found");
+}
 	}
 	printf("Count: %d", count);
 }
