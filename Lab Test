@@ -1,4 +1,4 @@
-//sen이 모두 소문자일 경우
+//sen이 모두 소문자일 경우-> 그냥 바로 반복문 돌리기
 #include <stdio.h>
 #include <string.h>
 void main()
@@ -31,7 +31,7 @@ void main()
 	printf("hong gil dong Count:%d", count);
 
 }
-//sen이 대소문자 섞여있을 경우
+//sen이 대소문자 섞여있을 경우-> target에 맞게 대소문장 하나로 통일하기
 #include <stdio.h>
 #include <string.h>
 void main()
@@ -73,7 +73,7 @@ void main()
 
 }
 
-//온전히 cat 이라는 단어만 count
+//온전히 cat 이라는 단어만 count(cat 앞 뒤 띄어쓰기 나 \0로 구별)
 #include <stdio.h>
 #include <string.h>
 void main()
