@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char sen[200] = "A thief named hong gil dong lived with friends named hong gil dong and hong gil ja in a village named hong gil dong village.";
+	char target[20] = "hong gil dong";
+	int count = 0, cursor = 0;
+	int target_index = 0;
+	while (sen[cursor] != NULL)
+	{
+		if (sen[cursor] == target[target_index])
+		{
+			target_index++;
+			if (strlen(target) == target_index)
+			{
+				count++;
+				target_index = 0;
+			}
+		}
+		else
+		{
+			if (target_index > 0)
+			{
+				cursor -= target_index;
+				target_index = 0;
+			}
+		}
+		cursor++;
+	}
+	printf("hong gil dong Count:%d", count);
+
+}
