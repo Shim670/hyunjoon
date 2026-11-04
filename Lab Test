@@ -1,3 +1,4 @@
+//sen이 모두 소문자일 경우
 #include <stdio.h>
 #include <string.h>
 void main()
@@ -6,6 +7,47 @@ void main()
 	char target[20] = "hong gil dong";
 	int count = 0, cursor = 0;
 	int target_index = 0;
+	while (sen[cursor] != NULL)
+	{
+		if (sen[cursor] == target[target_index])
+		{
+			target_index++;
+			if (strlen(target) == target_index)
+			{
+				count++;
+				target_index = 0;
+			}
+		}
+		else
+		{
+			if (target_index > 0)
+			{
+				cursor -= target_index;
+				target_index = 0;
+			}
+		}
+		cursor++;
+	}
+	printf("hong gil dong Count:%d", count);
+
+}
+//sen이 대소문자 섞여있을 경우
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	// 대소문자 상관 없이 count -> target이 소문자이면 sen의 대문자를 모두 소문자로 바꿔서 비교
+	char sen[200] = "HONg gil ja hong hong gil DOng Hong gil dong";
+	char target[20] = "hong gil dong";
+	int count = 0, cursor = 0;
+	int target_index = 0;
+	int upper_index = 0, lower_index = 0;
+	for (int i = 0; i < strlen(sen); i++)
+	{
+		if (sen[i]>=65 && sen[i]<=90)	  //대문자일 경우	
+			sen[i] += 32;// 소문자로 모두 변환
+	}
+
 	while (sen[cursor] != NULL)
 	{
 		if (sen[cursor] == target[target_index])
