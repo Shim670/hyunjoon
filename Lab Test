@@ -250,3 +250,39 @@ void main()
 	}
 	printf("Count: %d", count);
 }
+
+
+//문장 안에서 wildcard를 이용한 특정 단어 찾기
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char sen[100] = "hello mister monkey";
+	char target1 = 'm';
+	char target2 = 'y';
+	int count = 0;
+	int cursor1 = 0, cursor2 = 0;
+	while (sen[cursor1] != NULL)
+	{
+		if (sen[cursor1] == target1)
+		{
+			cursor2 = cursor1 + 1;
+			while (sen[cursor2] != NULL)
+			{
+				if (sen[cursor2] == target2)
+				{
+					count++;
+					cursor2 = 0;
+					break;
+				}
+				cursor2++;
+			}
+		}
+
+		cursor1++;
+	}
+	if (count > 0)
+		printf("match found");
+	else
+		printf("match not found");
+}
