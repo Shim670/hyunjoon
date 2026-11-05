@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+	char text[501] =
+		"A silver silver fox met a golden fox. "
+		"Then xxsilver foxzzz passed silver quick fox, silverfox, "
+		"and silver red fox. A Silver fox watched a silver fish fox. "
+		"Finally, silver fox rested near a silver fo.";
+	char searchString[101] = "silver fox";
+	char wildcardString[101] = "silver*fox";
+
+	int textLength = int(strlen(text));
+	int search_length = int(strlen(searchString));
+
+	printf("Text: ");
+	puts(text);
+	printf("Text length: %d\n", textLength);
+	int cursor = 0, count = 0;
+	int target_index = 0;
+	int index1 = 0;
+	int index2 = 0;
+	int index3 = 0;
+	while (text[cursor] != NULL)
+	{
+		if (text[cursor] == searchString[target_index])
+		{
+			target_index++;
+			if (strlen(searchString) == target_index)
+			{
+				if (count == 0)
+					index1 = (cursor - 9);
+				else if (count == 1)
+					index2 = cursor - 9;
+				else if (count == 2)
+					index3 = cursor - 9;
+				count++;
+				target_index = 0;
+			}
+		}
+		else
+		{
+			if (target_index > 0)
+			{
+				cursor -= target_index;
+				target_index = 0;
+			}
+		}
+		cursor++;
+	}
+	printf("\nSearch String: ");
+	puts(searchString);
+	printf("Search length: %d\n", search_length);
+	printf("Index: %d\n", index1);
+	printf("Index: %d\n", index2);
+	printf("Index: %d\n", index3);
+	printf("Count: %d\n\n", count);
+
+	int wildcardlength = int(strlen(wildcardString));
+	char target1[20] = "silver";
+	char target2[20] = "fox";
+	int cursor1 = 0, cursor2 = 0;
+	int Count = 0;
+	int target1_index = 0, target2_index = 0;
+	int Index1 = 0, Index2 = 0, Index3 = 0, Index4 = 0, Index5 = 0, Index6 = 0, Index7 = 0;
+	while (text[cursor1] != NULL)
+	{
+		if (text[cursor1] == target1[target1_index])
+		{
+			target1_index++;
+			if (strlen(target1) == target1_index)
+			{
+				cursor2 = cursor1 + 1;
+				target1_index = 0;
+				target2_index = 0;
+				while (text[cursor2] != NULL)
+				{
+					if (text[cursor2] == target2[target2_index])
+					{
+						target2_index++;
+						if (strlen(target2) == target2_index)
+						{
+							Count++;
+							if (Count == 1)
+								Index1 = cursor1- 5 ;
+							else if (Count == 2)
+								Index2 = cursor1 - 5;
+							else if (Count == 3)
+								Index3 = cursor1 - 5;
+							else if (Count == 4)
+								Index4 = cursor1 - 5;
+							else if (Count == 5)
+								Index5 = cursor1 - 5;
+							else if (Count == 6)
+								Index6 = cursor1 - 5;
+							else if (Count == 7)
+								Index7 = cursor1 - 5;
+							break;
+						}
+
+					}
+					else
+					{
+						if (target2_index > 0)
+						{
+							cursor2 -= target2_index;
+							target2_index = 0;
+						}
+					}
+					cursor2++;
+				}
+			}
+		}
+		else
+		{
+			if (target1_index > 0)
+			{
+				cursor1 -= target1_index;
+				target1_index = 0;
+			}
+		}
+
+		cursor1++;
+	}
+
+	printf("Wildcard string:");
+	puts(wildcardString);
+	printf("Wildcard length: %d\n", wildcardlength);
+	printf("Index:%d |\n", Index1);
+	printf("Index:%d | \n", Index2);
+	printf("Index:%d | \n", Index3);
+	printf("Index:%d | \n", Index4);
+	printf("Index:%d | \n", Index5);
+	printf("Index:%d | \n", Index6);
+	printf("Index:%d | \n", Index7);
+
+	printf("Count: %d", Count);
+}
+
+//text를 searchingString 으로 쓰는 실수
